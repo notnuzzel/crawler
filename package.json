@@ -1,0 +1,17 @@
+{
+  "name": "notnuzzel-crawler",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ncc run index.js",
+    "build": "ncc build index.js -o dist",
+    "start": "node dist/"
+  },
+  "dependencies": {
+    "rsmq-worker": "^0.5.2"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.28.5"
+  }
+}
