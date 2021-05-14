@@ -1,0 +1,24 @@
+name: NPM Deploy
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Use NPM Token with organization read access
+      uses: dkershner6/use-npm-token-action@v1
+      with:
+        token: "${{ secrets.NPM_TOKEN }}"
+    - name: yarn
+      run: yarn
+    - name: npm publish
+      run: npm publish
+      env:
+        CI: true

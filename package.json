@@ -1,17 +1,27 @@
 {
-  "name": "notnuzzel-crawler",
+  "name": "@notnuzzel/crawl",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "main": "./lib/index.js",
+  "files": [ "lib/" ],
   "scripts": {
-    "dev": "ncc run index.js",
-    "build": "ncc build index.js -o dist",
-    "start": "node dist/"
+    "clean": "rimraf ./lib/ ./worker/",
+    "build": "ncc build crawl.js -o lib && ncc build worker.js -o worker",
+    "test": "dotenv ncc run test/",
+    "dev": "dotenv ncc run worker.js",
+    "start": "pm2 start worker/index.js --name worker --no-daemon"
   },
   "dependencies": {
+    "redis": "^3.1.2",
+    "rsmq-promise": "^1.0.4",
     "rsmq-worker": "^0.5.2"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.28.5"
+    "@vercel/ncc": "^0.28.5",
+    "concurrently": "^6.1.0",
+    "dotenv": "^9.0.2",
+    "pm2": "^4.5.6",
+    "random-words": "^1.1.1",
+    "rimraf": "^3.0.2",
+    "wait": "^0.4.2"
   }
 }

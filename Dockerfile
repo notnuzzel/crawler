@@ -1,14 +1,7 @@
-# syntax=docker/dockerfile:1
-
-FROM node:14.16.1
+FROM node:14
 ENV NODE_ENV=production
-
-WORKDIR /app
-
+WORKDIR /usr/src/app
 COPY ["package.json", "yarn.lock", "./"]
-
 RUN yarn install --production
-
 COPY . .
-
-CMD [ "yarn", "start" ]
+CMD [ "pm2", "start", "worker/index.js", "--name", "worker" ]
