@@ -19,6 +19,6 @@ jobs:
     - name: yarn
       run: yarn
     - name: npm publish
-      run: npm publish
+      run: npm publish --access public
       env:
         CI: true
