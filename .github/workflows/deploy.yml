@@ -18,6 +18,8 @@ jobs:
         token: "${{ secrets.NPM_TOKEN }}"
     - name: yarn
       run: yarn
+    - name: yarn build
+      run: yarn build
     - name: npm publish
       run: npm publish --access public
       env:
