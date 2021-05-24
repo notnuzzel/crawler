@@ -1,9 +1,9 @@
 {
   "name": "@notnuzzel/crawl",
-  "version": "1.0.2",
-  "main": "./crawl.js",
+  "version": "1.0.3",
+  "main": "crawl.js",
   "files": [
-    "crawl.js/",
+    "crawl.js",
     "util/"
   ],
   "scripts": {
