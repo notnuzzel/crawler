@@ -1,4 +1,5 @@
 
-import Enum from "es6-enum"
-
-export const CRAWL = Enum("WEBSITE", "TIMELINE")
+export const CRAWL = {
+  TIMELINE: 'timeline',
+  WEBSITE: 'website'
+}
