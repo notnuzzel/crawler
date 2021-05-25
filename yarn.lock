@@ -1138,6 +1138,11 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
+es6-enum@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/es6-enum/-/es6-enum-1.1.0.tgz#6f23485d9617ad2daaa42d0df303846a6488a361"
+  integrity sha1-byNIXZYXrS2qpC0N8wOEamSIo2E=
+
 escalade@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/escalade/-/escalade-3.1.1.tgz#d8cfdc7000965c5a0174b4a82eaa5c0552742e40"
