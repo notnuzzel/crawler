@@ -1,28 +1,40 @@
 
-import queue from '../util/queue'
+import queue from '../src/util/queue'
 import wait from 'wait'
 import words from 'random-words'
 
-const jobs = queue('job-test')
+const jobHook = async ({
+  type, word
+}, done) => {
+  console.log(`processing ${type}:${word}`)
+  done()
+}
 
-const loop = async () => {
+
+const errorHook = async (err, msg, next, id) => {
+  console.error(err)
+  next()
+}
+
+const TYPE = 'word'
+
+const jobs = queue('job-test', {
+  [TYPE]: jobHook
+})
+
+jobs.process(errorHook)
+
+const enqueue = async () => {
   while(true) {
-    const username = words(1)[0]
-    jobs.push({ username })
-    console.log(`pushed ${username}`)
+    const word = words(1)[0]
+    jobs.push({ type: TYPE, word })
+    console.log(`pushed ${TYPE}:${word}`)
     await wait(2000)
   }
 }
 
-jobs.process(({
-  username
-}, done) => {
-  console.log(`processing ${username}`)
-  done()
-})
-
 try {
-  loop()
+  enqueue()
 } catch (e) {
   console.error(e)
 }

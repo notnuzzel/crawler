@@ -1,31 +1,31 @@
 {
   "name": "@notnuzzel/crawl",
-  "version": "1.0.5",
-  "main": "crawl.js",
+  "version": "1.0.6",
+  "main": "dist/index.js",
   "files": [
-    "crawl.js",
-    "util/"
+    "dist/"
   ],
   "scripts": {
-    "clean": "rimraf ./worker/",
-    "build": "ncc build worker.js -o worker",
-    "test": "dotenv ncc run test/",
-    "dev": "dotenv ncc run worker.js",
-    "start": "pm2 start worker/index.js --name worker --no-daemon"
+    "build": "swc src/client.js -o dist/index.js; swc src/util/ -d dist/",
+    "dev": "dotenv -- node -r esm src/worker",
+    "test": "dotenv -- node -r esm test/",
+    "start": "node -r esm src/worker"
   },
   "dependencies": {
-    "@notnuzzel/prisma": "^1.0.11",
+    "@notnuzzel/prisma": "^1.0.12",
     "awaity": "^1.0.0",
+    "bignumber.js": "^9.0.1",
     "es6-enum": "^1.1.0",
+    "esm": "^3.2.25",
     "got": "^11.8.2",
-    "metascraper": "^5.21.9",
-    "metascraper-author": "^5.21.9",
-    "metascraper-date": "^5.21.9",
-    "metascraper-description": "^5.21.9",
-    "metascraper-image": "^5.21.9",
-    "metascraper-publisher": "^5.21.9",
-    "metascraper-title": "^5.21.9",
-    "object-hash": "^2.1.1",
+    "metascraper": "^5.22.0",
+    "metascraper-author": "^5.22.0",
+    "metascraper-date": "^5.22.0",
+    "metascraper-description": "^5.22.0",
+    "metascraper-image": "^5.22.0",
+    "metascraper-publisher": "^5.22.0",
+    "metascraper-title": "^5.22.0",
+    "object-hash": "^2.2.0",
     "redis": "^3.1.2",
     "rsmq-promise": "^1.0.4",
     "rsmq-worker": "^0.5.2",
@@ -33,12 +33,10 @@
     "url-parse": "^1.5.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.28.5",
-    "concurrently": "^6.1.0",
-    "dotenv": "^10.0.0",
-    "pm2": "^4.5.6",
+    "@swc/cli": "^0.1.45",
+    "@swc/core": "^1.2.60",
+    "dotenv-cli": "^4.0.0",
     "random-words": "^1.1.1",
-    "rimraf": "^3.0.2",
     "wait": "^0.4.2"
   }
 }

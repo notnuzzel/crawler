@@ -1,7 +1,0 @@
-{
-  "name": "crawler-worker",
-  "script": "worker/index.js",
-  "env": {
-    "NODE_ENV": "production"
-  }
-}

@@ -5,14 +5,19 @@ import RSMQWorker from 'rsmq-worker'
 
 const client = redis.createClient(process.env.REDIS_URI)
 
-export default (queue) => {
+export default (queue, types) => {
   const worker = new RSMQWorker(queue, { redis: client })
   const start = () => worker.start()
   const stop = () => worker.stop()
-  const process = (func) => {
-    worker.on("message", (msg, next, id) => {
-      const job = JSON.parse(msg)
-      func(job, next, id)
+  const process = (err) => {
+    worker.on("message", async (msg, next, id) => {
+      try { 
+        const meta = JSON.parse(msg)
+        const fn = types[meta.type]
+        await fn(meta, next, id)
+      } catch (e) {
+        await err(e, msg, next, id)
+      }
     })
     worker.start()
   }
