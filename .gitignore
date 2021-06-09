@@ -116,6 +116,3 @@ dist
 .pnp.*
 
 .DS_Store
-
-lib/
-worker/

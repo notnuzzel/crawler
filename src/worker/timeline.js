@@ -2,53 +2,8 @@
 import twit from 'twit'
 import urlparse from 'url-parse'
 import reduce from 'awaity/reduce.js'
-import metascraper from 'metascraper'
-import metascraperAuthor from 'metascraper-author'
-import metascraperDate from 'metascraper-date'
-import metascraperDescription from 'metascraper-description'
-import metascraperImage from 'metascraper-image'
-import metascraperPublisher from 'metascraper-publisher'
-import metascraperTitle from 'metascraper-title'
-import got from 'got'
 import BigNumber from 'bignumber.js'
 import prisma from '@notnuzzel/prisma'
-import { CRAWL } from './util/types.js'
-import queue from './util/queue.js'
-
-const metascrape = metascraper([
-  metascraperAuthor(),
-  metascraperDate(),
-  metascraperDescription(),
-  metascraperImage(),
-  metascraperPublisher(),
-  metascraperTitle()
-])
-
-const scrape = async (targetURL) => {
-  const { body, url } = await got(targetURL)
-  return await metascrape({ html: body, url })
-}
-
-/*
-const findOrCreateArticle = async (href) => {
-  const article = await prisma.article.findUnique({
-    where: { href }
-  })
-  if (article) return article
-  const { author, date, description, image, publisher, title } = await scrape(href)
-  return await prisma.article.create({
-    data: { 
-      href,
-      title,
-      description,
-      publisher,
-      byline: author,
-      heroImage: image,
-      publishedAt: date
-    }
-  })
-}
-*/
 
 const twitPromise = (t, crud, endpoint, params) => new Promise((resolve, reject) => {
   t[crud](endpoint, params, (err, data, response) => {
@@ -162,7 +117,7 @@ const recursiveQueryTimeline = async (meta, {
   }
 }
 
-const crawlUserTimeline = async ({
+export default async ({
   accessToken,
   accessTokenSecret,
   cursors,
@@ -186,20 +141,3 @@ const crawlUserTimeline = async ({
   await prisma.crawl.update({ where: { id: crawl.id }, data: { sinceId } })
   done()
 }
-
-const crawlWebsite = async ({
-  href
-}, done) => {
-  console.log(`crawling ${href}`)
-  done()
-}
-
-const errorHook = async (err, msg, next, id) => {
-  console.error(err)
-  next()
-}
-
-queue('job-crawl', {
-  [CRAWL.TIMELINE]: crawlUserTimeline,
-  [CRAWL.WEBSITE]: crawlWebsite
-}).process(errorHook)
