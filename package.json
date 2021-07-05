@@ -12,7 +12,7 @@
     "start": "node -r esm src/worker.js"
   },
   "dependencies": {
-    "@notnuzzel/prisma": "^1.0.14",
+    "@notnuzzel/prisma": "^1.0.15",
     "awaity": "^1.0.0",
     "bee-queue": "^1.4.0",
     "bignumber.js": "^9.0.1",
