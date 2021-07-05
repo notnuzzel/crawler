@@ -1,6 +1,6 @@
 {
   "name": "@notnuzzel/crawl",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "main": "dist/index.js",
   "files": [
     "dist/"
@@ -32,7 +32,8 @@
     "redis": "^3.1.2",
     "rsmq-promise": "^1.0.4",
     "rsmq-worker": "^0.5.2",
-    "twit": "^2.2.11"
+    "twit": "^2.2.11",
+    "url-parse": "^1.5.1"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.46",
