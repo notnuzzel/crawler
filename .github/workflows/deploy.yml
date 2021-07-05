@@ -16,8 +16,8 @@ jobs:
       uses: dkershner6/use-npm-token-action@v1
       with:
         token: "${{ secrets.NPM_TOKEN }}"
-    - name: yarn install --frozen-lockfile
-      run: yarn install --frozen-lockfile
+    - name: yarn install  --production
+      run: yarn install --production
     - name: yarn build
       run: yarn build
     - name: npm publish
